@@ -1,5 +1,5 @@
 const Header = () => {
-  return <div>Header</div>;
-};
+  return <div>Javascrtip Quiz App</div>
+}
 
-export default Header;
+export default Header
