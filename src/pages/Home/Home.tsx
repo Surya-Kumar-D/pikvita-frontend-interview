@@ -8,11 +8,13 @@ import Question from '../../components/UI/Question'
 type InitialState = {
   questions: QuizResponse
   status: 'loading' | 'ready' | 'error' | 'active' | 'finished'
+  index: number
 }
 
 const initialState: InitialState = {
   questions: [],
   status: 'loading',
+  index: 0,
 }
 
 export type Action =
@@ -49,7 +51,7 @@ function reducer(state: InitialState, action: Action): InitialState {
 }
 
 const Home = () => {
-  const [{ questions, status }, dispatch] = useReducer(reducer, initialState)
+  const [{ questions, index, status }, dispatch] = useReducer(reducer, initialState)
   const numQuestions = questions.length
   useEffect(() => {
     const fetchData = async () => {
@@ -75,7 +77,7 @@ const Home = () => {
       {status === 'loading' && <Loader />}
       {status === 'error' && <ErrorPage />}
       {status === 'ready' && <StartScreen dispatch={dispatch} numQuestions={numQuestions} />}
-      {status === 'active' && <Question />}
+      {status === 'active' && <Question question={questions[index]} />}
     </main>
   )
 }
