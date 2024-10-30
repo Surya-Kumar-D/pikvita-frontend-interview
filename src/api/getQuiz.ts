@@ -28,8 +28,8 @@ const QuestionSchema = z.object({
 
 const QuizResponseSchema = z.array(QuestionSchema)
 
-type Question = z.infer<typeof QuestionSchema>
-type QuizResponse = z.infer<typeof QuizResponseSchema>
+export type Question = z.infer<typeof QuestionSchema>
+export type QuizResponse = z.infer<typeof QuizResponseSchema>
 
 const url: string =
   'https://quizapi.io/api/v1/questions?apiKey=M7RT7dicTsTgRWHPM4LqiwuNuiHK9VmtPIuFZOnY&category=code&difficulty=Easy&limit=10&tags=JavaScript'
@@ -41,7 +41,8 @@ const getQuiz = async (): Promise<QuizResponse> => {
   if (validatedData.success) {
     return validatedData.data
   } else {
-    throw new Error('Invalid data')
+    console.error('Validation errors:', validatedData.error.format())
+    throw new Error('Invalid data received from the quiz API')
   }
 }
 
